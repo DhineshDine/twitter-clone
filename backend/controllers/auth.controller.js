@@ -16,6 +16,11 @@ export const signup = async (req,res)=>{
             return res.status(400).json({ error: "Email is already taken"});
         }
 
+        const existingUsername = await User.findOne({ username });
+        if(existingUsername) {
+            return res.status(400).json({ error: "Username is already taken"});
+        }
+
         if(password.length < 6){
             return res.status(400).json({error: "Password must be at least 6 characrters long"});
         }
@@ -53,7 +58,7 @@ export const signup = async (req,res)=>{
     } catch (error) {
         console.log("Error in signup controller", error.message);
 
-        res.status(500).json({ error: "Interval Server Error" });
+        res.status(500).json({ error: "Internal Server Error" });
     }
 }
 
