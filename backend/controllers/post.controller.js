@@ -123,7 +123,7 @@ export const likeUnlikePost = async (req, res) =>{
             await notification.save();
 
             const updatedLikes = post.likes;
-            res.status(200).json(updatedLikes)
+            res.status(200).json(updatedLikes);
         }
     } catch (error) {
         console.log("Error in likeUnlikePost controller: ", error);
