@@ -48,6 +48,7 @@ bat "docker login -u dhineshdine -p ${DOCKER_HUB_PWD}"
   dir('front-end'){
   bat 'docker build -t dhineshdine/twitter-frontend-jenkins:latest .'
   bat 'docker push dhineshdine/twitter-frontend-jenkins:latest'
+  }
 
   dir('backend'){
   bat 'docker build -t dhineshdine/twitter-backend-jenkins:latest .'
@@ -62,7 +63,7 @@ echo 'Deployment Completed'
 
     
     
-}
+
 
   post {
     always {
@@ -78,5 +79,5 @@ echo 'Deployment Completed'
         echo 'Cleaning up workspace..'
     }
 }
-}
 
+}
