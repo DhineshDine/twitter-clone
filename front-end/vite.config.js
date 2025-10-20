@@ -5,9 +5,14 @@ import react from '@vitejs/plugin-react';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
- test: {
-    environment: 'jsdom',  
+  plugins: [react({
+    jsx: 'automatic',
+  }
+  ),
+  ],
+  test: {
+    environment: 'jsdom',   // <--- this is the key
+    setupFiles: ['./src/setupTests.js'],
     globals: true,
   },
   server:{
