@@ -33,7 +33,7 @@ bat 'npm install'
         dir('front-end'){
           bat 'npm install rimraf -g'
           bat 'rimraf node_modules'
-          bat 'npm install --include=dev'
+          bat 'npm install'
           bat 'npx vitest run'
         }
       }
