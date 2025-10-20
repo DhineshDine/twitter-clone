@@ -42,8 +42,8 @@ bat 'npm install'
 
     stage('Deploy'){
 steps {
-withCredentials([string(credentialsId: 'docker-pwd', variable: 'docker-pwd')]) {
-bat "docker login -u dhineshdine -p ${docker-pwd}"
+withCredentials([string(credentialsId: 'docker-pwd',variable: 'DOCKER_HUB_PWD')]) {
+bat "docker login -u dhineshdine -p ${DOCKER_HUB_PWD}"
 
   dir('front-end'){
   bat 'docker build -t dhineshdine/twitter-frontend-jenkins:latest'
