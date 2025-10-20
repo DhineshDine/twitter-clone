@@ -41,7 +41,7 @@ bat 'npm install'
     }
 
     stage('Deploy'){
-step {
+steps {
 withCredentials([string(credentialsId: 'docker-pwd', variable: 'Docker-Hub')]) {
 bat "docker login -u dhineshdine -p ${Docker-Hub}"
 
