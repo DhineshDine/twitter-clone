@@ -53,12 +53,30 @@ bat "docker login -u dhineshdine -p ${Docker-Hub}"
   bat 'docker build -t dhineshdine/twitter-backend-jenkins:latest'
   bat 'docker push dhineshdine/twitter-backend-jenkins:latest'
   }
-
+echo 'Deployment Completed'
   }
 }
 }
 
     }
+
     
+    
+}
+
+  post {
+    always {
+        echo 'This will always run after the pipeline completes.'
+    }
+    success {
+        echo 'Pipeline finished Successfully'
+    }
+    failure {
+        echo 'Pipeline failed'
+    }
+    cleanup {
+        echo 'Cleaning up workspace..'
+    }
+}
 }
 }
