@@ -33,7 +33,8 @@ bat 'npm install'
         dir('front-end'){
           bat 'npm install rimraf -g'
           bat 'rimraf node_modules'
-           bat 'npm install --save-dev jsdom @testing-library/react'
+          bat 'npm install -D jsdom'
+           bat 'npm install --save-dev @testing-library/react'
           bat 'npx vitest run'
         }
       }
