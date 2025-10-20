@@ -34,7 +34,7 @@ bat 'npm install'
           bat 'npm install rimraf -g'
           bat 'rimraf node_modules'
           bat 'npm install --include=dev'
-          bat 'npm test'
+          bat 'npx vitest run'
         }
       }
     }
