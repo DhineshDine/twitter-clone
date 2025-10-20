@@ -31,7 +31,8 @@ bat 'npm install'
       steps {
         echo 'Ruuning Frontend Testing'
         dir('front-end'){
-          bat 'rm -rf node_modules'
+          bat 'npm install rimraf -g'
+          bat 'rimraf node_modules'
           bat 'npm install --include=dev'
           bat 'npm test'
         }
