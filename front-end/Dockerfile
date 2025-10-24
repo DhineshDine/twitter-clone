@@ -10,5 +10,5 @@ FROM nginx:alpine
 # Copy the build files that builds to the nginx 
 COPY --from=build /app/dist /usr/share/nginx/html
 
-EXPOSE 82
+EXPOSE 80
 CMD ["nginx","-g","daemon off;"]
