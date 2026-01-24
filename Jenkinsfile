@@ -59,10 +59,11 @@ bat 'npm install'
           bat 'docker login -u dhineshdine -p %Docker_PWD%'
           bat 'docker push twitter-clone-frontend'
           bat 'docker push twitter-clone-backend'
-          
+
           }
       }
     }
     
+}
 }
 }
