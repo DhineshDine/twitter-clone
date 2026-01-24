@@ -10,7 +10,7 @@ import connectMongoDB from "./db/connectMongoDB.js";
 import cookieParser from "cookie-parser";
 import {v2 as cloudinary} from "cloudinary";
 
-dotenv.config();
+dotenv.config({ path: './backend/.env' });
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
