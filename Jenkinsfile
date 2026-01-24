@@ -39,12 +39,14 @@ bat 'npm install'
       }
     }
 
-    stage('Build Image'){
+    stage('Building frontend Image'){
       steps {
-        echo 'Building Docker Image'
         echo 'Building Frontend Image'
         dir('front-end'){
           bat 'docker build -t twitter-clone-frontend .'
+        }
+        stage('Building Backend Image'){
+      steps {
         echo 'Building Backend Image'
         dir('backend'){
           bat 'docker build -t twitter-clone-backend .'
