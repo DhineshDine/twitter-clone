@@ -38,18 +38,20 @@ bat 'npm install'
         }
       }
     }
+
     stage('Build Image'){
       steps {
         echo 'Building Docker Image'
         echo 'Building Frontend Image'
-        dir(front-end){
+        dir('front-end'){
           bat 'docker build -t twitter-clone-frontend .'
         echo 'Building Backend Image'
-        dir(backend){
+        dir('backend'){
           bat 'docker build -t twitter-clone-backend .'
 
         }
       }
+    }
     }
 
     stage('Deploy to Docker Hub'){
