@@ -1,76 +1,66 @@
-pipeline{
-  agent any 
+pipeline {
+    agent any
 
-  tools {
-    nodejs 'NodeJS_Home'
-  }
-
-
-  stages{
-// Build Frontend 
-  stage('Build Frontend'){
-steps {
-echo 'Building Frontend'
-dir('front-end'){
-bat 'npm install'
-  }
-  
-}
- }
-   // Building Backend 
-  stage('Build Backend') { 
-steps {
-echo 'Building Backend'
-dir('backend'){
-bat 'npm install'
-  }
-}
-}
-
-    stage('Testing Frontend'){
-      steps {
-        echo 'Ruuning Frontend Testing'
-        dir('front-end'){
-          bat 'npm install rimraf -g'
-          bat 'rimraf node_modules'
-          bat 'npm install'
-          bat 'npx vitest run'
-        }
-      }
+    tools {
+        nodejs 'NodeJS_Home'
     }
 
-    stage('Building frontend Image'){
-      steps {
-        echo 'Building Frontend Image'
-        dir('front-end'){
-          bat 'docker build -t twitter-clone-frontend .'
+    stages {
+        // 1. Build Frontend
+        stage('Build Frontend') {
+            steps {
+                echo 'Building Frontend'
+                dir('front-end') {
+                    bat 'npm install'
+                }
+            }
         }
-        }
-        }
-    stage('Building Backend Image'){
-      steps {
-        echo 'Building Backend Image'
-        dir('backend'){
-          bat 'docker build -t twitter-clone-backend .'
 
+        // 2. Build Backend
+        stage('Build Backend') {
+            steps {
+                echo 'Building Backend'
+                dir('backend') {
+                    bat 'npm install'
+                }
+            }
         }
-      }
+
+        // 3. Testing Frontend
+        stage('Testing Frontend') {
+            steps {
+                echo 'Running Frontend Testing'
+                dir('front-end') {
+                    // Optimized: Only run tests; no need to delete/reinstall if build stage passed
+                    bat 'npx vitest run'
+                }
+            }
+        }
+
+        // 4. Build Docker Images
+        stage('Building Docker Images') {
+            steps {
+                echo 'Building Images'
+                // Tagging with username is REQUIRED to push to Docker Hub
+                dir('front-end') {
+                    bat 'docker build -t dhineshdine/twitter-clone-frontend .'
+                }
+                dir('backend') {
+                    bat 'docker build -t dhineshdine/twitter-clone-backend .'
+                }
+            }
+        }
+
+        // 5. Deploy to Docker Hub
+        stage('Deploy to Docker Hub') {
+            steps {
+                echo 'Deploying to Docker Hub'
+                withCredentials([string(credentialsId: 'DOCKER_PWD', variable: 'Docker_PWD')]) {
+                    bat 'docker login -u dhineshdine -p %Docker_PWD%'
+                    bat 'docker push dhineshdine/twitter-clone-frontend'
+                    bat 'docker push dhineshdine/twitter-clone-backend'
+                }
+            }
+        }
     }
-    
-
-    stage('Deploy to Docker Hub'){
-      steps {
-        echo 'Deploying to Docker Hub'
-        withCredentials([string(credentialsId: 'DOCKER_PWD', variable: 'Docker_PWD')]) {
-          bat 'docker login -u dhineshdine -p %Docker_PWD%'
-          bat 'docker push twitter-clone-frontend'
-          bat 'docker push twitter-clone-backend'
-
-          }
-      }
-    }
-    
-    
 }
-}
-
