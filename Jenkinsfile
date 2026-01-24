@@ -38,6 +38,31 @@ bat 'npm install'
         }
       }
     }
+    stage('Build Image'){
+      steps {
+        echo 'Building Docker Image'
+        echo 'Building Frontend Image'
+        dir(front-end){
+          bat 'docker build -t twitter-clone-frontend .'
+        echo 'Building Backend Image'
+        dir(backend){
+          bat 'docker build -t twitter-clone-backend .'
+
+        }
+      }
+    }
+
+    stage('Deploy to Docker Hub'){
+      steps {
+        echo 'Deploying to Docker Hub'
+        withCredentials([string(credentialsId: 'DOCKER_PWD', variable: 'Docker_PWD')]) {
+          bat 'docker login -u dhineshdine -p %Docker_PWD%'
+          bat 'docker push twitter-clone-frontend'
+          bat 'docker push twitter-clone-backend'
+          
+          }
+      }
+    }
     
 }
 }
