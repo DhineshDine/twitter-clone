@@ -45,7 +45,9 @@ bat 'npm install'
         dir('front-end'){
           bat 'docker build -t twitter-clone-frontend .'
         }
-        stage('Building Backend Image'){
+        }
+        }
+    stage('Building Backend Image'){
       steps {
         echo 'Building Backend Image'
         dir('backend'){
@@ -54,8 +56,7 @@ bat 'npm install'
         }
       }
     }
-    }
-    }
+    
 
     stage('Deploy to Docker Hub'){
       steps {
