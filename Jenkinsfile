@@ -55,6 +55,7 @@ bat 'npm install'
       }
     }
     }
+    }
 
     stage('Deploy to Docker Hub'){
       steps {
@@ -67,6 +68,7 @@ bat 'npm install'
           }
       }
     }
+    
     
 }
 }
